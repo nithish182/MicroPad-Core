@@ -1,5 +1,5 @@
 import React from 'react';
-import { MICROPAD_URL, SYNC_NAME } from '../../../types';
+import { micropad_URL, SYNC_NAME } from '../../../types';
 import { ISyncState } from '../../../reducers/SyncReducer';
 import { DEFAULT_MODAL_OPTIONS } from '../../../util';
 import SingletonModalComponent from '../../singleton-modal/SingletonModalContainer';
@@ -26,7 +26,7 @@ export default class ManageSyncComponent extends React.Component<IManageSyncComp
 					<Button2 className="modal-close" flat>Close</Button2>
 				]}
 				options={DEFAULT_MODAL_OPTIONS}>
-				<a target="_blank" rel="noopener noreferrer nofollow" href={`${MICROPAD_URL}/sync/manage`}><h5>Go to <em>Manage {SYNC_NAME}</em></h5></a>
+				<a target="_blank" rel="noopener noreferrer nofollow" href={`${micropad_URL}/sync/manage`}><h5>Go to <em>Manage {SYNC_NAME}</em></h5></a>
 			</SingletonModalComponent>
 		);
 	}

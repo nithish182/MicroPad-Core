@@ -9,7 +9,7 @@ import { SyncReducer } from './SyncReducer';
 import { AppReducer } from './AppReducer';
 import { IsExportingReducer } from './IsExportingReducer';
 import { NotepadPasskeysReducer } from './NotepadPasskeysReducer';
-import { MicroPadAction, READ_ONLY_ACTIONS } from '../actions';
+import { micropadAction, READ_ONLY_ACTIONS } from '../actions';
 import { Action, Reducer, ReducersMapObject } from 'redux';
 import { isReadOnlyNotebook } from '../ReadOnly';
 import deepFreeze from 'deep-freeze';
@@ -21,8 +21,8 @@ interface ReduxReducer<S, A extends Action> {
 	reducer: Reducer<S, A>
 }
 
-const REDUCERS: Reducer<IStoreState, MicroPadAction> = (() => {
-	const reducers: ReducersMapObject<IStoreState, MicroPadAction> = {
+const REDUCERS: Reducer<IStoreState, micropadAction> = (() => {
+	const reducers: ReducersMapObject<IStoreState, micropadAction> = {
 		/* Legacy reducers */
 		app: new AppReducer().reducer,
 		currentNote: new NoteReducer().reducer,
@@ -41,8 +41,8 @@ const REDUCERS: Reducer<IStoreState, MicroPadAction> = (() => {
 	return combineReducers(reducers);
 })();
 
-export class BaseReducer implements ReduxReducer<IStoreState, MicroPadAction> {
-	public reducer = (state: IStoreState | undefined, action: MicroPadAction): IStoreState => {
+export class BaseReducer implements ReduxReducer<IStoreState, micropadAction> {
+	public reducer = (state: IStoreState | undefined, action: micropadAction): IStoreState => {
 		if (BaseReducer.isReadonlyViolation(state, action)) {
 			// Skip any state updates if we're in a readonly notebook
 			return state!;
@@ -52,7 +52,7 @@ export class BaseReducer implements ReduxReducer<IStoreState, MicroPadAction> {
 		return isDev() ? deepFreeze(newState) as IStoreState : newState;
 	}
 
-	private static isReadonlyViolation(state: IStoreState | undefined, action: MicroPadAction): boolean {
+	private static isReadonlyViolation(state: IStoreState | undefined, action: micropadAction): boolean {
 		if (!state) return false;
 		if (!isReadOnlyNotebook(state.notepads?.notepad?.item?.title ?? '')) {
 			return false;

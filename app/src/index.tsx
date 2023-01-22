@@ -2,7 +2,7 @@ import { isDev } from './app/util';
 import * as serviceWorker from './registerServiceWorker';
 import { initWasm } from './app/init-wasm';
 
-window.MicroPadGlobals = {};
+window.micropadGlobals = {};
 
 // `window.isSupported` is set by the Unsupported Browser logic.
 if (window.isSupported) {
@@ -12,19 +12,19 @@ if (window.isSupported) {
 
 	if (!isInTest && navigator.storage && navigator.storage.persist) {
 		navigator.storage.persist().then(storageAllowed => {
-			window.MicroPadGlobals.isPersistenceAllowed = storageAllowed;
+			window.micropadGlobals.isPersistenceAllowed = storageAllowed;
 			if (!storageAllowed) {
 				console.warn(`Failed to get permission for long-term storage. Notebooks may be removed from your device's storage under storage pressure.`);
 			}
-			initMicroPad();
+			initmicropad();
 		});
 	} else {
-		window.MicroPadGlobals.isPersistenceAllowed = true;
-		initMicroPad();
+		window.micropadGlobals.isPersistenceAllowed = true;
+		initmicropad();
 	}
 }
 
-function initMicroPad() {
+function initmicropad() {
 	// If you want your app to work offline and load faster, you can change
 	// unregister() to register() below. Note this comes with some pitfalls.
 	// Learn more about service workers: https://bit.ly/CRA-PWA

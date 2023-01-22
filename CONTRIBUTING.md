@@ -1,12 +1,12 @@
 # Contribution Guide
-Firstly, thanks for looking into contributing to MicroPad! Here is a step-by-step guide on how to do it:
+Firstly, thanks for looking into contributing to micropad! Here is a step-by-step guide on how to do it:
 
 ## Step 1. Find something that needs doing
-You can look on the two [GitHub Project boards](https://github.com/orgs/MicroPad/projects)
+You can look on the two [GitHub Project boards](https://github.com/orgs/micropad/projects)
 to find a task to pickup.
 
 ## Step 2. Get the code and do the task
-Checkout the [readme](https://github.com/MicroPad/MicroPad-Core/blob/master/README.md) for instructions on getting the code running.  
+Checkout the [readme](https://github.com/micropad/micropad-Core/blob/master/README.md) for instructions on getting the code running.  
 You should branch from `next-dev` when making your changes.
 
 ## Step 3. Make the pull request

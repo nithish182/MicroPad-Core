@@ -1,7 +1,7 @@
 import { actions } from '../actions';
-import { MicroPadStore } from '../root';
+import { micropadStore } from '../root';
 
-export function watchPastes(store: MicroPadStore) {
+export function watchPastes(store: micropadStore) {
 	document.addEventListener('paste', event => {
 		let file: File | undefined;
 		if (!!event.clipboardData && !!event.clipboardData.items) {

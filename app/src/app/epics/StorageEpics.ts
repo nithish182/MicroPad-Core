@@ -1,4 +1,4 @@
-import { actions, MicroPadAction, MicroPadActions } from '../actions';
+import { actions, micropadAction, micropadActions } from '../actions';
 import {
 	catchError,
 	concatMap,
@@ -36,10 +36,10 @@ const NOTEPAD_LIST_POLL_INTERVAL = 60 * 1000; // 1 minute
 
 let currentNotepadTitle = '';
 
-const saveNotepad$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+const saveNotepad$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.saveNotepad.started.type),
-		map(action => (action as MicroPadActions['saveNotepad']['started']).payload),
+		map(action => (action as micropadActions['saveNotepad']['started']).payload),
 		concatMap((notepad: Notepad) =>
 			from((async () =>
 					await NOTEPAD_STORAGE.setItem(
@@ -53,7 +53,7 @@ const saveNotepad$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
 		)
 	);
 
-const saveOnChanges$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+const saveOnChanges$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		map(() => state$.value),
 		map((state: IStoreState) => state.notepads.notepad?.item),
@@ -69,7 +69,7 @@ const saveOnChanges$ = (action$: Observable<MicroPadAction>, state$: EpicStore) 
 		filter(notepad => !isReadOnlyNotebook(notepad.title)),
 		map((notepad: FlatNotepad) => notepad.toNotepad()),
 		mergeMap((notepad: Notepad) => {
-			const actionsToReturn: MicroPadAction[] = [];
+			const actionsToReturn: micropadAction[] = [];
 
 			const syncId = state$.value.notepads.notepad?.activeSyncId;
 			if (syncId) {
@@ -86,7 +86,7 @@ const saveOnChanges$ = (action$: Observable<MicroPadAction>, state$: EpicStore) 
 		})
 	);
 
-const saveDefaultFontSize$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+const saveDefaultFontSize$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		withLatestFrom(state$),
 		map(([,state]): [INotepadStoreState, ICurrentNoteState] => [state.notepads.notepad!, state.currentNote]),
@@ -100,7 +100,7 @@ const saveDefaultFontSize$ = (action$: Observable<MicroPadAction>, state$: EpicS
 		map((fontSize: string) => actions.updateDefaultFontSize(fontSize))
 	);
 
-const getNotepadList$ = (action$: Observable<MicroPadAction>) =>
+const getNotepadList$ = (action$: Observable<micropadAction>) =>
 	action$.pipe(
 		ofType(actions.getNotepadList.started.type),
 		switchMap(() =>
@@ -113,7 +113,7 @@ const getNotepadList$ = (action$: Observable<MicroPadAction>) =>
 		)
 	);
 
-const pollNotepadList$ = (action$: Observable<MicroPadAction>) =>
+const pollNotepadList$ = (action$: Observable<micropadAction>) =>
 	action$.pipe(
 		ofType(actions.getNotepadList.done.type),
 		take(1),
@@ -122,10 +122,10 @@ const pollNotepadList$ = (action$: Observable<MicroPadAction>) =>
 		))
 	);
 
-const openNotepadFromStorage$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+const openNotepadFromStorage$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.openNotepadFromStorage.started.type),
-		map(action => (action as MicroPadActions['openNotepadFromStorage']['started']).payload),
+		map(action => (action as micropadActions['openNotepadFromStorage']['started']).payload),
 		switchMap((notepadTitle: string) =>
 			from(NOTEPAD_STORAGE.getItem<string>(notepadTitle)).pipe(
 				switchMap((json: string | null) => {
@@ -154,7 +154,7 @@ const openNotepadFromStorage$ = (action$: Observable<MicroPadAction>, state$: Ep
 		)
 	);
 
-const cleanUnusedAssets$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+const cleanUnusedAssets$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$
 		.pipe(
 			ofType(actions.parseNpx.done.type, actions.deleteElement.type, actions.deleteNotepadObject.type),
@@ -175,19 +175,19 @@ const cleanUnusedAssets$ = (action$: Observable<MicroPadAction>, state$: EpicSto
 			filter((res: Action<any>[]) => res.length > 0)
 		);
 
-const deleteNotepad$ = (action$: Observable<MicroPadAction>) =>
+const deleteNotepad$ = (action$: Observable<micropadAction>) =>
 	action$.pipe(
 		ofType(actions.deleteNotepad.type),
-		map(action => (action as MicroPadActions['deleteNotepad']).payload),
+		map(action => (action as micropadActions['deleteNotepad']).payload),
 		tap((notepadTitle: string) => from(NOTEPAD_STORAGE.removeItem(notepadTitle))),
 		map(() => actions.clearOldData.started({ silent: true }))
 	);
 
 export type LastOpenedNotepad = { notepadTitle: string, noteRef?: string };
-const persistLastOpenedNotepad$ = (action$: Observable<MicroPadAction>, _store, { getStorage }: EpicDeps) =>
+const persistLastOpenedNotepad$ = (action$: Observable<micropadAction>, _store, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.parseNpx.done.type),
-		map(action => (action as MicroPadActions['parseNpx']['done']).payload.result),
+		map(action => (action as micropadActions['parseNpx']['done']).payload.result),
 		tap((notepad: FlatNotepad) =>
 			getStorage()
 				.generalStorage
@@ -197,13 +197,13 @@ const persistLastOpenedNotepad$ = (action$: Observable<MicroPadAction>, _store, 
 		noEmit()
 	);
 
-const persistLastOpenedNote$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
+const persistLastOpenedNote$ = (action$: Observable<micropadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.loadNote.done.type),
 		filter(() => !!state$.value.notepads.notepad?.item),
 		map((action): LastOpenedNotepad => ({
 			notepadTitle: state$.value.notepads.notepad?.item?.title!,
-			noteRef: (action as MicroPadActions['loadNote']['done']).payload.params
+			noteRef: (action as micropadActions['loadNote']['done']).payload.params
 		})),
 		tap(lastOpened =>
 			getStorage()
@@ -214,7 +214,7 @@ const persistLastOpenedNote$ = (action$: Observable<MicroPadAction>, state$: Epi
 		noEmit()
 	);
 
-const clearLastOpenNoteOnClose$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
+const clearLastOpenNoteOnClose$ = (action$: Observable<micropadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.closeNote.type, actions.deleteNotepadObject.type),
 		map(() => state$.value.notepads.notepad?.item?.title),
@@ -234,7 +234,7 @@ const clearLastOpenNoteOnClose$ = (action$: Observable<MicroPadAction>, state$: 
 		noEmit()
 	);
 
-const clearLastOpenedNotepad$ = (action$: Observable<MicroPadAction>) =>
+const clearLastOpenedNotepad$ = (action$: Observable<micropadAction>) =>
 	action$.pipe(
 		ofType(
 			actions.closeNotepad.type,
@@ -250,10 +250,10 @@ const clearLastOpenedNotepad$ = (action$: Observable<MicroPadAction>) =>
 		noEmit()
 	);
 
-const clearOldData$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
+const clearOldData$ = (action$: Observable<micropadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.clearOldData.started.type),
-		map(action => action as MicroPadActions['clearOldData']['started']),
+		map(action => action as micropadActions['clearOldData']['started']),
 		tap(action => {
 			// Clear saved crypto passwords if the user clicked the manual button
 			if (!action.payload.silent) {
@@ -275,24 +275,24 @@ const clearOldData$ = (action$: Observable<MicroPadAction>, state$: EpicStore, {
 		)
 	);
 
-const notifyOnClearOldDataSuccess$ = (action$: Observable<MicroPadAction>) =>
+const notifyOnClearOldDataSuccess$ = (action$: Observable<micropadAction>) =>
 	action$.pipe(
 		ofType(actions.clearOldData.done.type),
 		tap(action =>
-			!(action as MicroPadActions['clearOldData']['done']).payload.params.silent && Dialog.alert('The spring cleaning has been done!')
+			!(action as micropadActions['clearOldData']['done']).payload.params.silent && Dialog.alert('The spring cleaning has been done!')
 		),
 		noEmit()
 	);
 
-export const storageEpics$ = combineEpics<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>(
+export const storageEpics$ = combineEpics<micropadAction, micropadAction, IStoreState, EpicDeps>(
 	saveNotepad$,
 	getNotepadList$,
 	pollNotepadList$,
  	openNotepadFromStorage$,
 	deleteNotepad$,
 	saveOnChanges$,
-	saveDefaultFontSize$ as Epic<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>,
-	cleanUnusedAssets$ as Epic<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>,
+	saveDefaultFontSize$ as Epic<micropadAction, micropadAction, IStoreState, EpicDeps>,
+	cleanUnusedAssets$ as Epic<micropadAction, micropadAction, IStoreState, EpicDeps>,
 	persistLastOpenedNotepad$,
 	persistLastOpenedNote$,
 	clearLastOpenNoteOnClose$,

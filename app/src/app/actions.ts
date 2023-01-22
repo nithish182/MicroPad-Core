@@ -29,10 +29,10 @@ import { AppInfoMessage } from './reducers/AppInfoReducer';
 import { ModalId } from './types/ModalIds';
 import { EncryptionStatus } from './reducers/AppReducer';
 
-export type MicroPadAction = ActionTypes[keyof ActionTypes];
+export type micropadAction = ActionTypes[keyof ActionTypes];
 export type ActionNames = keyof ActionFactories;
 
-export type MicroPadActions = {
+export type micropadActions = {
 	[ActionName in ActionNames]: ActionFactories[ActionName] extends ActionCreator<any>
 		? ReturnType<ActionFactories[ActionName]>
 		: ActionFactories[ActionName] extends AsyncActionCreators<any, any, any>

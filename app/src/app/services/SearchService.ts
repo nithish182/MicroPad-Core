@@ -41,7 +41,7 @@ export function search(query: string, searchIndices: SearchIndices): SearchResul
 
 export async function indexNotepads(indices: SearchIndices, passkeys: NotepadPasskeysState) {
 	const NOTEPAD_STORAGE = localforage.createInstance({
-		name: 'MicroPad',
+		name: 'micropad',
 		storeName: 'notepads'
 	});
 	await NOTEPAD_STORAGE.ready();

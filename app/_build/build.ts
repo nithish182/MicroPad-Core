@@ -12,7 +12,7 @@ import { createHash } from 'crypto';
 const OUT_DIR = 'build';
 const isDev = process.env.NODE_ENV !== 'production';
 const PORT: number = (() => {
-	const port = process.env.MICROPAD_PORT;
+	const port = process.env.micropad_PORT;
 	return !!port ? parseInt(port, 10) : 3000;
 })();
 

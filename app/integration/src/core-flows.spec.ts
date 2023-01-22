@@ -1,10 +1,10 @@
-import { stabiliseMicroPad } from './utils/general-ui';
+import { stabilisemicropad } from './utils/general-ui';
 import { createNotebookUsingDropdown } from './utils/notebooks';
 import { IMG_SNAPSHOT_OPTS } from './utils/jest-image';
 
 describe(`Core Flows`, () => {
 	beforeAll(async () => {
-		await stabiliseMicroPad(); // Load MicroPad
+		await stabilisemicropad(); // Load micropad
 	})
 
 	it(`Create a notebook using the dropdown`, async () => {

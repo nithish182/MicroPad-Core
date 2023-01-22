@@ -7,7 +7,7 @@ import { getStorage, StorageMap, TOAST_HANDLER } from '../root';
 import { IStoreState } from '../types';
 import ToastEventHandler from '../services/ToastEventHandler';
 import { NotificationService } from '../services/NotificationService';
-import { MicroPadAction } from '../actions';
+import { micropadAction } from '../actions';
 
 export type EpicDeps = {
 	helpNpx: string,
@@ -17,7 +17,7 @@ export type EpicDeps = {
 	notificationService: NotificationService
 };
 
-export const epicMiddleware = createEpicMiddleware<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>({
+export const epicMiddleware = createEpicMiddleware<micropadAction, micropadAction, IStoreState, EpicDeps>({
 	dependencies: {
 		helpNpx,
 		getStorage: getStorage,

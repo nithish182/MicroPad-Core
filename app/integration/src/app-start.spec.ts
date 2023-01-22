@@ -1,11 +1,11 @@
-import { openMicroPad } from './utils/general-ui';
+import { openmicropad } from './utils/general-ui';
 
 describe(`App Start`, () => {
 	beforeAll(async () => {
-		await openMicroPad(); // Load MicroPad
+		await openmicropad(); // Load micropad
 	});
 
-	it(`should start MicroPad`, async () => {
+	it(`should start micropad`, async () => {
 		// Arrange / Act
 		const headerTitleEl = await page.waitForSelector('.brand-logo');
 		const headerTitle = await page.$eval('.brand-logo', e => e.textContent);
@@ -15,7 +15,7 @@ describe(`App Start`, () => {
 		expect(headerTitle?.startsWith('µPad')).toBe(true);
 	});
 
-	it(`should start MicroPad and display "What's New"`, async () => {
+	it(`should start micropad and display "What's New"`, async () => {
 		// Arrange / Act
 		let mdHelp = await page.waitForSelector('#markdown-help');
 

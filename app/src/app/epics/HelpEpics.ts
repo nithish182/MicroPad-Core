@@ -3,13 +3,13 @@ import { concatMap, map, withLatestFrom } from 'rxjs/operators';
 import { from, Observable } from 'rxjs';
 import { EpicDeps, EpicStore } from './index';
 import { filterTruthy } from '../util';
-import { actions, MicroPadAction } from '../actions';
+import { actions, micropadAction } from '../actions';
 import { Dialog } from '../services/dialogs';
 import { IStoreState } from '../types';
 
 const HELP_READONLY_DATE = new Date('2021-08-18T14:34:30.958+12:00');
 
-export const getHelp$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
+export const getHelp$ = (action$: Observable<micropadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.getHelp.started.type),
 		withLatestFrom(state$),
@@ -33,13 +33,13 @@ export const getHelp$ = (action$: Observable<MicroPadAction>, state$: EpicStore,
 		map(() => actions.getHelp.done({}))
 	);
 
-export const getHelpSuccess$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { helpNpx }) =>
+export const getHelpSuccess$ = (action$: Observable<micropadAction>, state$: EpicStore, { helpNpx }) =>
 	action$.pipe(
 		ofType(actions.getHelp.done.type),
 		map(() => actions.parseNpx.started(helpNpx))
 	);
 
-export const helpEpics$ = combineEpics<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>(
+export const helpEpics$ = combineEpics<micropadAction, micropadAction, IStoreState, EpicDeps>(
 	getHelp$,
 	getHelpSuccess$
 );

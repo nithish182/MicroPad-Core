@@ -3541,7 +3541,7 @@
 ## micropad@3.20.1
 - Published By: Nick Webster
 - Licence: MPL-2.0
-- https://github.com/MicroPad/Web
+- https://github.com/micropad/Web
 
 ## miller-rabin@4.0.1
 - Published By: Fedor Indutny
@@ -5639,7 +5639,7 @@
 ## upad-parse@6.3.0
 - Published By: Nick Webster
 - Licence: MPL-2.0
-- https://github.com/MicroPad/Web-Parser
+- https://github.com/micropad/Web-Parser
 
 ## upath@1.1.2
 - Published By: Angelos Pikoulas

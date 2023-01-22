@@ -6,7 +6,7 @@ import { ISyncedNotepad } from '../../types/SyncTypes';
 import { canOptimiseElement } from 'upad-parse/dist/Note';
 
 const ASSET_STORAGE = localforage.createInstance({
-	name: 'MicroPad',
+	name: 'micropad',
 	storeName: 'assets'
 });
 

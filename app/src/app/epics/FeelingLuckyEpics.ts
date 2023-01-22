@@ -1,12 +1,12 @@
 import { combineEpics, ofType } from 'redux-observable';
-import { actions, MicroPadAction } from '../actions';
+import { actions, micropadAction } from '../actions';
 import { EpicStore } from './index';
 import { Observable, switchMap } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { ThemeValues } from '../ThemeValues';
 import { ThemeName } from '../types/Themes';
 
-export const feelingLucky$ = (actions$: Observable<MicroPadAction>, state$: EpicStore) =>
+export const feelingLucky$ = (actions$: Observable<micropadAction>, state$: EpicStore) =>
 	actions$.pipe(
 		ofType(actions.feelingLucky.type),
 		switchMap(() => state$.pipe(

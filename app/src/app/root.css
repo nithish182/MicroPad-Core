@@ -85,7 +85,7 @@ nav .menu-items > div {
 	color: #607d8b;
 }
 
-/* Materialize modals need to always be on top. MicroPad doesn't go over 5000 for anything native. */
+/* Materialize modals need to always be on top. micropad doesn't go over 5000 for anything native. */
 .modal.open {
 	z-index: 5002 !important;
 }

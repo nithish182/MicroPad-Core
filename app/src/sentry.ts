@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import { isDev } from './app/util';
 import { version } from '../package.json';
-import { MicroPadAction } from './app/actions';
+import { micropadAction } from './app/actions';
 import { Failure } from 'typescript-fsa';
 import { CaptureConsole } from '@sentry/integrations';
 
@@ -31,7 +31,7 @@ export function initSentry() {
 export function createSentryReduxEnhancer() {
 	return Sentry.createReduxEnhancer({
 		stateTransformer: _state => null,
-		actionTransformer: (action: MicroPadAction) => {
+		actionTransformer: (action: micropadAction) => {
 			if (action.type === 'MOUSE_MOVE') return null;
 			return {
 				type: action.type,

@@ -19,7 +19,7 @@ import './theme-styles/Purple.css';
 /* JS Imports */
 import React from 'react';
 import 'materialize-css/dist/js/materialize.js';
-import { MICROPAD_URL } from './types';
+import { micropad_URL } from './types';
 import { applyMiddleware } from 'redux';
 import { BaseReducer } from './reducers/BaseReducer';
 import { epicMiddleware } from './epics';
@@ -51,9 +51,9 @@ import { watchPastes } from './services/paste-watcher';
 import { configureStore } from '@reduxjs/toolkit';
 
 try {
-	document.domain = MICROPAD_URL.split('//')[1];
+	document.domain = micropad_URL.split('//')[1];
 } catch (err) {
-	console.warn(`Couldn't set domain for resolving CORS. If this is prod change 'MICROPAD_URL'.`);
+	console.warn(`Couldn't set domain for resolving CORS. If this is prod change 'micropad_URL'.`);
 }
 
 const baseReducer: BaseReducer = new BaseReducer();
@@ -81,32 +81,32 @@ export const store = configureStore({
 
 epicMiddleware.run(rootEpic$);
 
-export type MicroPadStore = typeof store;
+export type micropadStore = typeof store;
 
 export const TOAST_HANDLER = new ToastEventHandler();
 
 export const NOTEPAD_STORAGE = localforage.createInstance({
-	name: 'MicroPad',
+	name: 'micropad',
 	storeName: 'notepads'
 });
 
 export const ASSET_STORAGE = localforage.createInstance({
-	name: 'MicroPad',
+	name: 'micropad',
 	storeName: 'assets'
 });
 
 export const SYNC_STORAGE = localforage.createInstance({
-	name: 'MicroPad',
+	name: 'micropad',
 	storeName: 'sync'
 });
 
 export const SETTINGS_STORAGE = localforage.createInstance({
-	name: 'MicroPad',
+	name: 'micropad',
 	storeName: 'settings'
 });
 
 export const CRYPTO_PASSKEYS_STORAGE = localforage.createInstance({
-	name: 'MicroPad',
+	name: 'micropad',
 	storeName: 'cryptoPasskeys'
 });
 
@@ -142,7 +142,7 @@ export function getStorage(): StorageMap {
 	await hydrateStoreFromLocalforage();
 	createDynamicCss(store);
 
-	if (!window.MicroPadGlobals.isPersistenceAllowed) {
+	if (!window.micropadGlobals.isPersistenceAllowed) {
 		store.dispatch(actions.setInfoMessage({
 			text: `Failed to get permission for long-term storage. You may need to save your notebooks manually.`,
 			cta: 'https://example.org' // TODO

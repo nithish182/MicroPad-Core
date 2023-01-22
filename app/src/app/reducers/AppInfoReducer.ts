@@ -1,4 +1,4 @@
-import { actions, MicroPadAction } from '../actions';
+import { actions, micropadAction } from '../actions';
 import { createSlice, SliceCaseReducers } from '@reduxjs/toolkit';
 import { DOWNLOAD_NOTEBOOK_MESSAGE } from '../strings.enNZ';
 
@@ -12,7 +12,7 @@ export type AppInfoMessage = {
 	cta?: string,
 	localButton?: {
 		title: string,
-		action: (dispatch: (action: MicroPadAction) => void) => void,
+		action: (dispatch: (action: micropadAction) => void) => void,
 	},
 };
 

@@ -1,6 +1,6 @@
 import { combineEpics, ofType } from 'redux-observable';
 import { filterTruthy } from '../util';
-import { actions, MicroPadAction } from '../actions';
+import { actions, micropadAction } from '../actions';
 import { filter, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { IStoreState } from '../types';
 import { trim } from '../components/note-viewer/elements/drawing/trim-canvas';
@@ -10,7 +10,7 @@ import { from, Observable } from 'rxjs';
 import { ASSET_STORAGE } from '../root';
 import { EpicDeps, EpicStore } from './index';
 
-export const generateMarkdownForPrint$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+export const generateMarkdownForPrint$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.print.started.type),
 		withLatestFrom(state$),
@@ -62,7 +62,7 @@ export const generateMarkdownForPrint$ = (action$: Observable<MicroPadAction>, s
 		))
 	);
 
-export const printEpics$ = combineEpics<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>(
+export const printEpics$ = combineEpics<micropadAction, micropadAction, IStoreState, EpicDeps>(
 	generateMarkdownForPrint$
 );
 

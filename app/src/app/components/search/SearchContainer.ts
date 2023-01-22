@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import SearchComponent from './SearchComponent';
 import { IStoreState } from '../../types';
 import { Dispatch } from 'redux';
-import { actions, MicroPadAction } from '../../actions';
+import { actions, micropadAction } from '../../actions';
 import { RestoreJsonNotepadAndLoadNoteAction } from '../../types/ActionTypes';
 
 export const searchConnector = connect(
@@ -14,7 +14,7 @@ export const searchConnector = connect(
 			showResults: search.shouldShowResults
 		};
 	},
-	(dispatch: Dispatch<MicroPadAction>) => ({
+	(dispatch: Dispatch<micropadAction>) => ({
 		search: (query: string) => dispatch(actions.search.started(query)),
 		loadResult: (currentNotepadTitle: string | undefined, result: RestoreJsonNotepadAndLoadNoteAction) => {
 			if (currentNotepadTitle === result.notepadTitle) {

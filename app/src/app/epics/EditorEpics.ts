@@ -1,12 +1,12 @@
 import { combineEpics, ofType } from 'redux-observable';
-import { actions, MicroPadAction } from '../actions';
+import { actions, micropadAction } from '../actions';
 import { EpicDeps, EpicStore } from './index';
 import { from, Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, withLatestFrom } from 'rxjs/operators';
 import { noEmit } from '../util';
 import { IStoreState } from '../types';
 
-export const persistSpellCheck$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
+export const persistSpellCheck$ = (action$: Observable<micropadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.toggleSpellCheck.type),
 		withLatestFrom(state$),
@@ -21,7 +21,7 @@ export const persistSpellCheck$ = (action$: Observable<MicroPadAction>, state$: 
 		noEmit()
 	);
 
-export const persistWordWrap$ = (action$: Observable<MicroPadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
+export const persistWordWrap$ = (action$: Observable<micropadAction>, state$: EpicStore, { getStorage }: EpicDeps) =>
 	action$.pipe(
 		ofType(actions.toggleWordWrap.type),
 		withLatestFrom(state$),
@@ -36,7 +36,7 @@ export const persistWordWrap$ = (action$: Observable<MicroPadAction>, state$: Ep
 		noEmit()
 	);
 
-export const editorEpics$ = combineEpics<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>(
+export const editorEpics$ = combineEpics<micropadAction, micropadAction, IStoreState, EpicDeps>(
 	persistSpellCheck$,
 	persistWordWrap$
 );

@@ -11,7 +11,7 @@ export const appSettingsContainer = connect(
 	dispatch => ({
 		clearOldData: () => dispatch(actions.clearOldData.started({ silent: false })),
 		forgetSavedPasswords: async () => {
-			if (!await Dialog.confirm('Are you sure that you want MicroPad to forget all saved passwords for encrypted notebooks?')) {
+			if (!await Dialog.confirm('Are you sure that you want micropad to forget all saved passwords for encrypted notebooks?')) {
 				return;
 			}
 			dispatch(actions.forgetSavedPasswords.started());

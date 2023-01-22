@@ -1,5 +1,5 @@
 import React from 'react';
-import { MICROPAD_URL, SYNC_NAME } from '../../types';
+import { micropad_URL, SYNC_NAME } from '../../types';
 import { DEFAULT_MODAL_OPTIONS } from '../../util';
 import SingletonModalComponent from '../singleton-modal/SingletonModalContainer';
 import Button2 from '../Button';
@@ -20,7 +20,7 @@ export const SyncProErrorComponent = () => (
 				To sync this notepad you'll need to upgrade to {SYNC_NAME} Pro for less than the price of a cup of coffee:
 			</p>
 
-			<Button2 className="accent-btn" waves="light" onClick={() => window.open(`${MICROPAD_URL}/sync/manage`, '_blank')}>Upgrade here</Button2>
+			<Button2 className="accent-btn" waves="light" onClick={() => window.open(`${micropad_URL}/sync/manage`, '_blank')}>Upgrade here</Button2>
 		</div>
 	</SingletonModalComponent>
 );

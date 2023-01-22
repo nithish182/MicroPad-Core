@@ -1,5 +1,5 @@
 import React from 'react';
-import { MICROPAD_URL, SYNC_NAME } from '../../../types';
+import { micropad_URL, SYNC_NAME } from '../../../types';
 import * as DifferenceEngine from '../../../services/DifferenceEngine';
 import LoginComponent from '../../../containers/LoginContainer';
 import { syncOptionsConnector } from './SyncOptionsContainer';
@@ -53,7 +53,7 @@ export default class SyncOptionsComponent extends React.Component<ConnectedProps
 									</li>
 
 									{shouldShowCollaborationOptions && <li style={{ paddingTop: '1em' }}>
-										<a target="_blank" rel="noopener noreferrer nofollow" href={`${MICROPAD_URL}/sync/manage`}>Collaboration/Sharing Options</a>
+										<a target="_blank" rel="noopener noreferrer nofollow" href={`${micropad_URL}/sync/manage`}>Collaboration/Sharing Options</a>
 										<ul className="sync-settings-component__action-list">
 											{!!syncState.sharedNotepadList?.[notepad.title]?.scribe && <li>Scribe: <em>{syncState.sharedNotepadList[notepad.title].scribe}</em></li>}
 										</ul>

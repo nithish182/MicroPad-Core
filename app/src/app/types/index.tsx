@@ -25,13 +25,13 @@ export interface IStoreState {
 	readonly appInfo: AppInfoState;
 }
 
-export type MicroPadGlobals = {
+export type micropadGlobals = {
 	currentModalId?: string,
 	isPersistenceAllowed?: boolean
 };
 declare global {
 	interface Window {
-		MicroPadGlobals: MicroPadGlobals
+		micropadGlobals: micropadGlobals
 		isElectron?: boolean,
 		isSupported: boolean,
 		toastEvent: (guid: string) => void,
@@ -56,7 +56,7 @@ declare global {
 
 export const APP_NAME = 'µPad';
 export const SYNC_NAME = 'µSync';
-export const MICROPAD_URL = 'https://getmicropad.com';
+export const micropad_URL = 'https://getmicropad.com';
 export const UNSUPPORTED_MESSAGE = 'Support for this type of content has been removed. You can go to https://getmicropad.com/web to access v2.';
 export const BAD_BROWSER_AUDIO = `If your web browser doesn't support this type of audio you can click here to download it.`;
 

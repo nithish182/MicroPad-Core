@@ -1,6 +1,6 @@
 import { Store } from 'redux';
 import { IStoreState } from './types';
-import { MicroPadAction } from './actions';
+import { micropadAction } from './actions';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { ThemeValues } from './ThemeValues';
@@ -9,7 +9,7 @@ import { NAV_HEIGHT } from './services/FullscreenService';
 
 const STYLE_ELEMENT = 'dynamic-styles';
 
-export function createDynamicCss(store: Store<IStoreState, MicroPadAction>): void {
+export function createDynamicCss(store: Store<IStoreState, micropadAction>): void {
 	const state$ = new Observable<IStoreState>(subscriber => {
 		subscriber.next(store.getState());
 		return store.subscribe(() => {

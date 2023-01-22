@@ -1,5 +1,5 @@
 import { Page } from 'playwright';
-import { openMicroPadRaw } from './utils/general-ui';
+import { openmicropadRaw } from './utils/general-ui';
 
 describe(`App Info Messages`, () => {
 	it(`should not show the info banner if there is no informational message available`, async () => {
@@ -15,7 +15,7 @@ describe(`App Info Messages`, () => {
 		});
 
 		// Act
-		await openMicroPad(page);
+		await openmicropad(page);
 		await page.waitForResponse(/info\.json\?.*$/, { timeout: 6000 });
 
 		// Assert
@@ -37,7 +37,7 @@ describe(`App Info Messages`, () => {
 		});
 
 		// Act
-		await openMicroPad(page);
+		await openmicropad(page);
 		await page.waitForResponse(/info\.json\?.*$/, { timeout: 6000 });
 
 		// Assert
@@ -61,7 +61,7 @@ describe(`App Info Messages`, () => {
 		});
 
 		// Act
-		await openMicroPad(page);
+		await openmicropad(page);
 		await page.waitForResponse(/info\.json\?.*$/, { timeout: 6000 });
 		const infoBanner = await page.$('.info-banner__msg');
 
@@ -90,7 +90,7 @@ describe(`App Info Messages`, () => {
 		});
 
 		// Act
-		await openMicroPad(page);
+		await openmicropad(page);
 		await page.waitForResponse(/info\.json\?.*$/, { timeout: 6000 });
 		const infoBanner = await page.$('.info-banner__msg');
 
@@ -99,7 +99,7 @@ describe(`App Info Messages`, () => {
 	});
 });
 
-async function openMicroPad(page: Page) {
-	await openMicroPadRaw(page);
+async function openmicropad(page: Page) {
+	await openmicropadRaw(page);
 	await page.waitForSelector('.brand-logo');
 }

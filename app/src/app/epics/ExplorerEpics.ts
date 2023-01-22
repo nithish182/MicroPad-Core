@@ -1,6 +1,6 @@
 import { combineEpics, ofType } from 'redux-observable';
 import { concatMap, filter, map, tap, withLatestFrom } from 'rxjs/operators';
-import { actions, MicroPadAction, MicroPadActions } from '../actions';
+import { actions, micropadAction, micropadActions } from '../actions';
 import { filterTruthy, noEmit } from '../util';
 import { NewNotepadObjectAction } from '../types/ActionTypes';
 import { FlatNotepad, Note } from 'upad-parse/dist';
@@ -10,7 +10,7 @@ import { ThemeValues } from '../ThemeValues';
 import { EpicDeps, EpicStore } from './index';
 import { IStoreState } from '../types';
 
-export const expandAll$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+export const expandAll$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.expandAllExplorer.started.type),
 		withLatestFrom(state$),
@@ -23,12 +23,12 @@ export const expandAll$ = (action$: Observable<MicroPadAction>, state$: EpicStor
 		map((allRefs: string[]) => actions.expandAllExplorer.done({ params: undefined, result: allRefs }))
 	);
 
-export const autoLoadNewSection$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+export const autoLoadNewSection$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.newSection.type),
 		withLatestFrom(state$),
 		map(([action, state]): [NewNotepadObjectAction, FlatNotepad] => [
-			(action as MicroPadActions['newSection']).payload,
+			(action as micropadActions['newSection']).payload,
 			state.notepads.notepad?.item!
 		]),
 		filter(([insertAction, notepad]: [NewNotepadObjectAction, FlatNotepad]) => !!insertAction && !!notepad),
@@ -41,10 +41,10 @@ export const autoLoadNewSection$ = (action$: Observable<MicroPadAction>, state$:
 		map((newSection: FlatSection) => actions.expandSection(newSection.internalRef))
 	);
 
-export const openBreadcrumb$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+export const openBreadcrumb$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.openBreadcrumb.type),
-		map(action => (action as MicroPadActions['openBreadcrumb']).payload),
+		map(action => (action as micropadActions['openBreadcrumb']).payload),
 		withLatestFrom(state$),
 		filter(([,state]) => !!state.notepads.notepad?.item),
 		map(([ref, state]) => {
@@ -66,7 +66,7 @@ export const openBreadcrumb$ = (action$: Observable<MicroPadAction>, state$: Epi
 		)
 	);
 
-export const flashExplorer$ = (action$: Observable<MicroPadAction>, state$: EpicStore) =>
+export const flashExplorer$ = (action$: Observable<micropadAction>, state$: EpicStore) =>
 	action$.pipe(
 		ofType(actions.flashExplorer.type),
 		withLatestFrom(state$),
@@ -80,7 +80,7 @@ export const flashExplorer$ = (action$: Observable<MicroPadAction>, state$: Epic
 		noEmit()
 	);
 
-export const explorerEpics$ = combineEpics<MicroPadAction, MicroPadAction, IStoreState, EpicDeps>(
+export const explorerEpics$ = combineEpics<micropadAction, micropadAction, IStoreState, EpicDeps>(
 	expandAll$,
 	autoLoadNewSection$,
 	openBreadcrumb$,

@@ -74,7 +74,7 @@ jobs:
       working-directory: app
       run: |
         yarn
-    - name: Run Micropad in background for testing
+    - name: Run micropad in background for testing
       run: |
         mkdir micropad
         tar xf micropad.tar.xz -C micropad
@@ -91,7 +91,7 @@ jobs:
       name: production
       url: "https://web.getmicropad.com"
     needs: [build, test]
-    if: github.ref == 'refs/heads/master' && github.repository == 'micropad/Micropad-Core'
+    if: github.ref == 'refs/heads/master' && github.repository == 'micropad/micropad-Core'
     steps:
     - uses: actions/download-artifact@v3
       with:
@@ -113,7 +113,7 @@ jobs:
       name: next
       url: "https://next.getmicropad.com"
     needs: [build, test]
-    if: github.ref == 'refs/heads/next-dev' && github.repository == 'micropad/Micropad-Core'
+    if: github.ref == 'refs/heads/next-dev' && github.repository == 'micropad/micropad-Core'
     steps:
     - uses: actions/download-artifact@v3
       with:

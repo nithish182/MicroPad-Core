@@ -5,10 +5,10 @@ import { ModalOptions } from 'react-materialize';
 
 export const DEFAULT_MODAL_OPTIONS: ModalOptions = {
 	onOpenEnd: (modal: HTMLElement) => {
-		window.MicroPadGlobals.currentModalId = modal.id;
+		window.micropadGlobals.currentModalId = modal.id;
 	},
 	onCloseEnd: () => {
-		delete window.MicroPadGlobals.currentModalId;
+		delete window.micropadGlobals.currentModalId;
 	}
 };
 

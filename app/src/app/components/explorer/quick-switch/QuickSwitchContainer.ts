@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { IStoreState } from '../../../types';
 import { Dispatch } from 'redux';
-import { actions, MicroPadAction } from '../../../actions';
+import { actions, micropadAction } from '../../../actions';
 import QuickSwitchComponent from './QuickSwitchComponent';
 
 export const quickSwitchConnector = connect(
@@ -9,7 +9,7 @@ export const quickSwitchConnector = connect(
 		notepadTitles: state.notepads.savedNotepadTitles ?? [],
 		currentTitle: state.notepads.notepad?.item?.title
 	}),
-	(dispatch: Dispatch<MicroPadAction>) => ({
+	(dispatch: Dispatch<micropadAction>) => ({
 		loadNotepad: (notepadTitle: string) => dispatch(actions.openNotepadFromStorage.started(notepadTitle))
 	})
 );

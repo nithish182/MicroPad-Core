@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 import { TextInput } from 'react-materialize';
-import { APP_NAME, MICROPAD_URL, SYNC_NAME } from '../../types';
+import { APP_NAME, micropad_URL, SYNC_NAME } from '../../types';
 import { SyncUser } from '../../types/SyncTypes';
 import { Dialog } from '../../services/dialogs';
 import { DEFAULT_MODAL_OPTIONS } from '../../util';
@@ -54,11 +54,11 @@ export default class LoginComponent extends React.Component<ILoginComponentProps
 						<p>
 							It's completely free for any notepad that's mostly text,
 							and it costs less than a cup of coffee for up to twenty of your more advanced
-							notepads. <a target="_blank" rel="noopener noreferrer nofollow" href={`${MICROPAD_URL}/sync`}>More information »</a>
+							notepads. <a target="_blank" rel="noopener noreferrer nofollow" href={`${micropad_URL}/sync`}>More information »</a>
 						</p>
 					</div>
 
-					<p><a target="_blank" rel="noopener noreferrer nofollow" href={`${MICROPAD_URL}/sync/manage`}>Sign up here</a> or login below:</p>
+					<p><a target="_blank" rel="noopener noreferrer nofollow" href={`${micropad_URL}/sync/manage`}>Sign up here</a> or login below:</p>
 
 					<form className="login-component__form" style={{ marginTop: '20px' }} action="#" onSubmit={this.login}>
 						<TextInput s={12} label="Username" onChange={e => this.username = e.target.value} />

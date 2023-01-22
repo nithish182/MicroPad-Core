@@ -1,5 +1,5 @@
 import { from, fromEvent, lastValueFrom, Observable, of, retryWhen } from 'rxjs';
-import { MICROPAD_URL } from '../types';
+import { micropad_URL } from '../types';
 import { concatMap, filter, map, retry, take } from 'rxjs/operators';
 import { AssetList, INotepadSharingData, ISyncedNotepad, SyncedNotepadList } from '../types/SyncTypes';
 import { parse } from 'date-fns';
@@ -148,7 +148,7 @@ export function uploadAsset(url: string, asset: Blob): Observable<void> {
 
 function callApi<T>(parent: string, endpoint: string, resource: string, payload?: Record<string, string>, method?: string): Observable<T> {
 	return ajax<T>({
-		url: `${shouldUseDevApi() ? 'http://localhost:48025' : MICROPAD_URL}/diffeng/${parent}/${endpoint}/${resource}`,
+		url: `${shouldUseDevApi() ? 'http://localhost:48025' : micropad_URL}/diffeng/${parent}/${endpoint}/${resource}`,
 		method: method || (!payload) ? 'GET' : 'POST',
 		body: payload ? new URLSearchParams(payload).toString() : undefined,
 		crossDomain: true,

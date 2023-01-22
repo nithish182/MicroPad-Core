@@ -5,7 +5,7 @@ import { decrypt } from 'upad-parse/dist/crypto';
 import { AddCryptoPasskeyAction, EncryptNotepadAction } from '../types/ActionTypes';
 import { Action } from 'typescript-fsa';
 import { actions } from '../actions';
-import { MicroPadStore } from '../root';
+import { micropadStore } from '../root';
 
 export class DecryptionError extends Error {
 	constructor (error: Error) {
@@ -47,7 +47,7 @@ export async function fromShell(shell?: NotepadShell, key?: string): Promise<Enc
 	};
 }
 
-export async function restoreSavedPasswords(store: MicroPadStore, storage: LocalForage): Promise<void> {
+export async function restoreSavedPasswords(store: micropadStore, storage: LocalForage): Promise<void> {
 	const keys = await storage.keys();
 
 	const forks: Promise<Action<AddCryptoPasskeyAction>>[] = keys.map(async notepadTitle =>
